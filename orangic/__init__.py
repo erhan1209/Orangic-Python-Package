@@ -7,7 +7,7 @@ Example usage:
     client = orangic.Orangic(api_key="your-api-key")
 
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": "Hello!"}

@@ -172,20 +172,6 @@ class ChatCompletions:
                         continue
 
 
-class Models:
-    """Models API"""
-
-    def __init__(self, client):
-        self.client = client
-
-    def list(self) -> Dict[str, Any]:
-        """List available models"""
-        return self.client._request("GET", "/v1/models")
-
-    def retrieve(self, model: str) -> Dict[str, Any]:
-        """Retrieve a specific model"""
-        return self.client._request("GET", f"/v1/models/{model}")
-
 
 class Orangic:
     """Main Orangic API client"""
@@ -193,7 +179,7 @@ class Orangic:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        base_url: str = "https://api.orangic.tech",
+        base_url: str = "https://api.orangic.chat",
         timeout: float = 600.0,
         max_retries: int = 2,
     ):
@@ -218,7 +204,6 @@ class Orangic:
 
         # Initialize API resources
         self.chat = Chat(self)
-        self.models = Models(self)
 
     def _headers(self) -> Dict[str, str]:
         """Get request headers"""
@@ -240,7 +225,7 @@ class Orangic:
 
     def _handle_error(self, response: httpx.Response):
         """Handle API errors"""
-        if response.status_code == 200:
+        if response.status_code < 400:
             return
 
         try:

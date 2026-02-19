@@ -13,7 +13,7 @@ def basic_completion():
     client = orangic.Orangic(api_key=os.getenv("ORANGIC_API_KEY"))
     
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": "What is the capital of France?"}
@@ -32,7 +32,7 @@ def streaming_completion():
     client = orangic.Orangic()
     
     stream = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=[
             {"role": "user", "content": "Write a short poem about coding"}
         ],
@@ -62,7 +62,7 @@ def conversation_example():
     
     # First response
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=messages
     )
     
@@ -75,7 +75,7 @@ def conversation_example():
     
     # Second response
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=messages
     )
     
@@ -89,7 +89,7 @@ def with_parameters():
     client = orangic.Orangic()
     
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=[
             {"role": "user", "content": "Write three creative company names for a coffee shop"}
         ],
@@ -111,7 +111,7 @@ def error_handling():
         # This will fail with invalid API key
         client = orangic.Orangic(api_key="invalid-key")
         response = client.chat.completions.create(
-            model="orangic-1",
+            model="org-1",
             messages=[{"role": "user", "content": "Hello"}]
         )
     except orangic.AuthenticationError as e:
@@ -124,27 +124,13 @@ def error_handling():
     print()
 
 
-def list_models():
-    """List available models"""
-    print("=== List Models ===\n")
-    
-    client = orangic.Orangic()
-    
-    try:
-        models = client.models.list()
-        print(f"Available models: {models}")
-    except Exception as e:
-        print(f"Error listing models: {e}")
-    
-    print()
-
 
 def quick_completion():
     """Quick completion without client instance"""
     print("=== Quick Completion ===\n")
     
     response = orangic.completion(
-        model="orangic-1",
+        model="org-1",
         messages=[{"role": "user", "content": "Say hello!"}]
     )
     
@@ -163,7 +149,7 @@ def using_message_objects():
     ]
     
     response = client.chat.completions.create(
-        model="orangic-1",
+        model="org-1",
         messages=messages
     )
     
@@ -188,7 +174,6 @@ if __name__ == "__main__":
     # conversation_example()
     # with_parameters()
     # error_handling()
-    # list_models()
     # quick_completion()
     # using_message_objects()
     
