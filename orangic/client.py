@@ -78,11 +78,8 @@ class ChatCompletionChunk:
     """Represents a streaming chat completion chunk"""
 
     def __init__(self, data: Dict[str, Any]):
-        self.id = data.get("id")
-        self.object = data.get("object", "chat.completion.chunk")
-        self.created = data.get("created")
-        self.model = data.get("model")
-        self.choices = data.get("choices", [])
+        self.content = data.get("content", "")
+        self.channel = data.get("channel", "final")
 
 
 class Chat:
@@ -110,6 +107,7 @@ class ChatCompletions:
         presence_penalty: Optional[float] = 0.0,
         stop: Optional[Union[str, List[str]]] = None,
         stream: bool = False,
+        reasoning: Optional[str] = None,
         **kwargs,
     ) -> Union[ChatCompletion, Iterator[ChatCompletionChunk]]:
         """Create a chat completion"""
@@ -138,6 +136,9 @@ class ChatCompletions:
 
         if stop is not None:
             payload["stop"] = stop
+
+        if reasoning is not None:
+            payload["reasoning"] = reasoning
 
         if stream:
             return self._stream_completion(payload)
@@ -205,6 +206,14 @@ class Orangic:
         # Initialize API resources
         self.chat = Chat(self)
 
+    def balance(self) -> Dict[str, Any]:
+        """Get current balance for this API key"""
+        return self._request("GET", "/v1/balance")
+
+    def usage(self, days: int = 30) -> Dict[str, Any]:
+        """Get usage report. days: number of days to look back (1-365, default 30)"""
+        return self._request("GET", f"/v1/report/usage?days={days}")
+
     def _headers(self) -> Dict[str, str]:
         """Get request headers"""
         return {
@@ -230,7 +239,8 @@ class Orangic:
 
         try:
             error_data = response.json()
-            error_message = error_data.get("error", {}).get("message", response.text)
+            err = error_data.get("error")
+            error_message = err if isinstance(err, str) else response.text
         except:
             error_message = response.text
 
