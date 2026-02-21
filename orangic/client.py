@@ -93,9 +93,9 @@ class ChatCompletions:
         self,
         model: str,
         messages: List[Union[Dict[str, str], Message]],
-        temperature: Optional[float] = 1.0,
+        temperature: Optional[float] = 0.7,
         max_tokens: Optional[int] = None,
-        top_p: Optional[float] = 1.0,
+        top_p: Optional[float] = None,
         frequency_penalty: Optional[float] = 0.0,
         presence_penalty: Optional[float] = 0.0,
         stop: Optional[Union[str, List[str]]] = None,
@@ -117,12 +117,14 @@ class ChatCompletions:
             "model": model,
             "messages": formatted_messages,
             "temperature": temperature,
-            "top_p": top_p,
             "frequency_penalty": frequency_penalty,
             "presence_penalty": presence_penalty,
             "stream": stream,
             **kwargs,
         }
+
+        if top_p is not None:
+            payload["top_p"] = top_p
 
         if max_tokens is not None:
             payload["max_tokens"] = max_tokens
