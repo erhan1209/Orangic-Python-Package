@@ -53,15 +53,6 @@ class Message:
         return {"role": self.role, "content": self.content}
 
 
-class Choice:
-    """Represents a completion choice"""
-
-    def __init__(self, data: Dict[str, Any]):
-        self.index = data.get("index", 0)
-        self.message = data.get("message", {})
-        self.finish_reason = data.get("finish_reason")
-
-
 class ChatCompletion:
     """Represents a chat completion response"""
 
@@ -70,15 +61,10 @@ class ChatCompletion:
         self.object = data.get("object", "chat.completion")
         self.created = data.get("created")
         self.model = data.get("model")
-        self.choices = [Choice(c) for c in data.get("choices", [])]
-        self.usage = data.get("usage", {})
-
-    @property
-    def content(self) -> str:
-        """Shortcut for choices[0].message['content']"""
-        if self.choices:
-            return self.choices[0].message.get("content", "")
-        return ""
+        self.content: str = data.get("content", "")
+        self.finish_reason: Optional[str] = data.get("finish_reason")
+        self.tool_calls: Optional[List[Dict[str, Any]]] = data.get("tool_calls")
+        self.usage: Dict[str, Any] = data.get("usage", {})
 
 
 class ChatCompletionChunk:
@@ -114,7 +100,7 @@ class ChatCompletions:
         presence_penalty: Optional[float] = 0.0,
         stop: Optional[Union[str, List[str]]] = None,
         stream: bool = False,
-        reasoning: Optional[str] = None,
+        reasoning: Optional[Union[str, int]] = None,
         **kwargs,
     ) -> Union[ChatCompletion, Iterator[ChatCompletionChunk]]:
         """Create a chat completion"""
