@@ -73,6 +73,13 @@ class ChatCompletion:
         self.choices = [Choice(c) for c in data.get("choices", [])]
         self.usage = data.get("usage", {})
 
+    @property
+    def content(self) -> str:
+        """Shortcut for choices[0].message['content']"""
+        if self.choices:
+            return self.choices[0].message.get("content", "")
+        return ""
+
 
 class ChatCompletionChunk:
     """Represents a streaming chat completion chunk"""
