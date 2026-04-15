@@ -1,20 +1,18 @@
 # Orangic Python SDK
 
-> ⚠️ **Pre-release Notice**: This package is currently in development. The API and features are subject to change.
+Python package for the Orangic API.
 
-The official Python library for the Orangic API.
+## Current Status
 
-## Status
+`orangic` is a pre-release placeholder package.
 
-🚧 **Coming Soon** - Orangic is currently in development. This package reserves the name and provides a preview of the upcoming API.
+What that means right now:
 
-## Planned Features
+- The package can be installed from PyPI.
+- The public client surface is not implemented yet.
+- Creating an `Orangic` client or calling helper functions raises `NotImplementedError`.
 
-- ✨ Simple, intuitive API similar to industry standards
-- 🚀 Streaming support for real-time responses
-- 🔒 Secure authentication
-- 📝 Comprehensive documentation
-- 🐍 Python 3.8+ support
+The current release exists to reserve the package name and provide a stable place for future updates.
 
 ## Installation
 
@@ -22,48 +20,38 @@ The official Python library for the Orangic API.
 pip install orangic
 ```
 
-**Note**: The package is not yet functional. Stay tuned for updates!
+## Current Behavior
 
-## Planned Usage
+The example below shows the current state of the package:
 
 ```python
 import orangic
 
-# Coming soon!
 client = orangic.Orangic(api_key="your-api-key")
-
-response = client.chat.completions.create(
-    model="orangic-1",
-    messages=[
-        {"role": "user", "content": "Hello!"}
-    ]
-)
 ```
 
-## Development Status
+Running this raises `NotImplementedError` because the API client has not been released yet.
 
-This package is in **alpha** stage. We're working hard to bring you an amazing AI API experience.
+## What To Expect Later
 
-### Roadmap
-- [ ] Core API implementation
-- [ ] Streaming support
-- [ ] Comprehensive documentation
-- [ ] Production-ready release
+Planned work includes:
 
-## Stay Updated
+- A usable API client
+- Authentication support
+- Streaming support
+- Expanded documentation
 
-- 🌐 Website: https://orangic.tech
-- 📧 Email: support@orangic.tech
-- 📦 PyPI: https://pypi.org/project/orangic/
+## Links
+
+- Website: https://orangic.tech
+- Documentation: https://orangic.tech/docs
+- PyPI: https://pypi.org/project/orangic/
+- Support: support@orangic.tech
 
 ## Contributing
 
-Orangic is not yet open for contributions. We'll update this section once we're ready for community involvement.
+This repository is not ready for external contributions yet.
 
 ## License
 
-MIT License - See LICENSE file for details
-
----
-
-**Orangic** - AI API Platform (Coming Soon)
+MIT. See [LICENSE](LICENSE).

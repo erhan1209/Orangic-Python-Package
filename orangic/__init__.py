@@ -1,11 +1,4 @@
-"""
-Orangic Python SDK - Pre-release
-
-This is a placeholder release to reserve the package name.
-The full functionality will be available soon!
-
-Visit https://orangic.tech for updates.
-"""
+"""Top-level package for the Orangic Python SDK."""
 
 from .client import (
     Orangic,
@@ -21,8 +14,8 @@ __all__ = [
     "__version__",
 ]
 
-# Display notice on import
 print(
-    "⚠️  Orangic is currently in pre-release. "
-    "Visit https://orangic.tech for updates."
+    "Orangic is a pre-release package. "
+    "Client functionality is not implemented yet. "
+    "See https://orangic.tech for updates."
 )
